@@ -1,0 +1,14 @@
+<Libros xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+    <Libro publicado_en="1954">
+        <Titulo>El Señor de los anillos</Titulo>
+        <Autor>J. R. R. Tolkien</Autor>
+    </Libro>
+    <Libro publicado_en="1989">
+        <Titulo>Némesis</Titulo>
+        <Autor>Isaac Asimov</Autor>
+    </Libro>
+    <Libro publicado_en="1977">
+        <Titulo>La esfinge</Titulo>
+        <Autor>Tom Learner</Autor>
+    </Libro>
+</Libros>
