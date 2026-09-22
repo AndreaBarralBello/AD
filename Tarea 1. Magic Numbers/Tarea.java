@@ -1,6 +1,7 @@
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.RandomAccessFile;
 import java.util.Scanner;
 
@@ -12,53 +13,92 @@ public class Tarea {
 
     public static void main(String[] args) {
 
-        //Variables
-        Scanner teclado = new Scanner(System.in);
-        String rutaDirectorio = "a";
-        String datosSeleccionados = " ";
-
-        //Pido la ruta por teclado
-        System.out.println("Introduce la ruta completa del directorio");
-        rutaDirectorio = teclado.nextLine();
-
-        //Creo el archivo File con el que vamos a trabajar
-        File carpeta = new File(rutaDirectorio);
-
-        //Ahora verificamos si es un directorio para poder recorrerlo
+      
+         File carpeta = new File ("pedirDatos()");
+         String datosSeleccionados ="";
 
 
-        /*TO DO AQUÍ ME QUEDA PENDIENTE SI 
-            - EXISTE
-            - ES DIRECTORIO
-            - SI NO ESTÁ VACÍO
-            - SI SE PUEDE RECORRER (LEER)
-        */
-        if (carpeta.isDirectory()) {
+        //Si es un directorio y si existe
+        if (carpeta.isDirectory() && carpeta.exists()) {
 
             System.out.println("Es un directorio");
 
             File[] listaArchivos = carpeta.listFiles();
+
+            //Si tiene archivos, lo recorremos
+            if(listaArchivos.length > 0){
 
             for (int i = 0; i < listaArchivos.length; i++) {
                 File cadaArchivo = new File(listaArchivos[i].toString());
                 datosSeleccionados = seleccionarDato(cadaArchivo);
                 comprobarTipoDato(datosSeleccionados);
             }
+            }else{
+            //No tiene archivos
+            System.out.println("El directorio no tiene archivos");
+            }
 
         } else {
-
+            //No es un directorio
             System.out.println("No es un directorio");
         }
 
     }
 
-    //Como FileInputStream lee el archivo completo, usamos RandomAccessFile
-    //Primero leemos los 16 primeros bytes y los guardamos en String
-    //Esto solo lo podemos hacer con RAF
-    //los ajustamos al tamaño con StringBuilder
-    //con switch comprobamos a qué tipo pertenecen
-    //mostramos los resultados obtenidos por consola
 
+    /*
+    * Pedimos la ruta absoluta por consola
+     */
+    public static File pedirDatos(){
+
+        Scanner teclado = new Scanner(System.in);
+        String rutaDirectorio = "a";
+        String datosSeleccionados = " ";
+
+
+        //Pido la ruta por teclado
+        System.out.println("Introduce la ruta completa del directorio");
+        rutaDirectorio = teclado.nextLine();
+
+        //Creo el archivo File con el que vamos a trabajar
+         File carpeta = new File(rutaDirectorio);
+
+         return carpeta;
+
+    }
+
+    public static void listarArchivos(File archivo){
+
+        if(archivo.isDirectory() && archivo.exists()){
+            System.out.println("Es un directorio");
+
+            File[] listaArchivos = archivo.listFiles();
+
+            //Si tiene archivos, lo recorremos
+            if(listaArchivos.length > 0){
+
+            for (int i = 0; i < listaArchivos.length; i++) {
+                File cadaArchivo = new File(listaArchivos[i].toString());
+                datosSeleccionados = seleccionarDato(cadaArchivo);
+                comprobarTipoDato(datosSeleccionados);
+            }
+            }else{
+            //No tiene archivos
+            System.out.println("El directorio no tiene archivos");
+            }
+
+        } else {
+            //No es un directorio
+            System.out.println("No es un directorio");
+        }
+
+
+        }
+
+
+    }
+    
+    
     /* 
     * Selecciona solo los datos de la cabecera del archivo
     *
@@ -72,10 +112,10 @@ public class Tarea {
         StringBuilder datosBuilder = new StringBuilder();
         String datos = " ";
 
-        try (RandomAccessFile raf = new RandomAccessFile(archivo, "r")) {
+        try (InputStreamReader ier = new InputStreamReader(archivo)) {
             //Leo los datos en bytes, se parsean a String
             //con el método .readFully se copian los 4 bytes del archivo al array
-            raf.read(datosByte); //ahora el array de bytes que creamos
+            ier.read(datosByte); //ahora el array de bytes que creamos
             // tiene los datos en bytes
 
             for (int i = 0; i < datosByte.length; i++) {
