@@ -194,13 +194,16 @@ public class Agenda {
         System.out.println("Introduce la posición que quieres eliminar");
         posicion = teclado.nextInt();
 
+        //Creo un array de bytes donde se van a guardar todos los registros antes de eliminar
+        //el selecionado
+        List<byte[]> listaContactos = new ArrayList<>();
+
         try (RandomAccessFile raf = new RandomAccessFile(ARCHIVO, "rw")) {
 
             long posicionBytes = (posicion -1) * TAMANO_REGISTRO;
             raf.seek(posicionBytes);
 
-            // Creo un ArrayList con los datos antes del borrado
-            List<Byte> listaContactos = new ArrayList<>();
+           
 
             for (int i = 0; i < listaContactos.size(); i++) {
                 raf.read();
