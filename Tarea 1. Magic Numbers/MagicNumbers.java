@@ -64,7 +64,7 @@ public class MagicNumbers {
             File[] listaArchivos = archivo.listFiles();
 
             //Si tiene archivos, lo recorremos
-            if (listaArchivos.length > 0) {
+            if (listaArchivos.length > 0 && listaArchivos != null) {
 
                 for (int i = 0; i < listaArchivos.length; i++) {
                     listarArchivos(listaArchivos[i]);
