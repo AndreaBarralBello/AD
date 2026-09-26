@@ -10,7 +10,7 @@ import java.util.Scanner;
 indicando el tipo de archivos que contiene según la cabecera del mismo 
 (no por la extensión)f
  */
-public class Tarea {
+public class MagicNumbers {
 
     public static void main(String[] args) {
 
@@ -157,3 +157,4 @@ public class Tarea {
         }
     }
 }
+
